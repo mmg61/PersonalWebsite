@@ -1,0 +1,21 @@
+<svg width="200" height="64" viewBox="0 0 200 64" xmlns="http://www.w3.org/2000/svg">
+  <style>
+    .mm {
+      fill: #ffffff;
+      font-family: system-ui, -apple-system, sans-serif;
+      font-weight: 800;
+      font-size: 48px;
+      letter-spacing: -2px;
+    }
+    .g {
+      fill: #ffb703;
+      font-family: system-ui, -apple-system, sans-serif;
+      font-weight: 800;
+      font-size: 48px;
+      letter-spacing: -2px;
+    }
+  </style>
+  <text x="0" y="48">
+    <tspan class="mm">MM</tspan><tspan class="g">G</tspan>
+  </text>
+</svg>
