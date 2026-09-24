@@ -8,13 +8,15 @@ interface ObfuscatedEmailProps {
   iconClassName?: string;
   showIcon?: boolean;
   isIconOnly?: boolean;
+  textClassName?: string;
 }
 
 export default function ObfuscatedEmail({ 
   className = "", 
   iconClassName = "w-4 h-4 text-[#00b4d8]", 
   showIcon = false,
-  isIconOnly = false
+  isIconOnly = false,
+  textClassName = ""
 }: ObfuscatedEmailProps) {
   const [href, setHref] = useState("#");
   
@@ -40,7 +42,7 @@ export default function ObfuscatedEmail({
     >
       {showIcon && <Mail className={iconClassName} />}
       {!isIconOnly && (
-        <span className="hidden sm:inline">
+        <span className={textClassName}>
           {/* Botların kaynak koddan e-posta kopyalamasını engellemek için araya gizli bir nokta ekliyoruz */}
           {u}<span className="hidden">.bot-trap.</span>&#64;{d}
         </span>

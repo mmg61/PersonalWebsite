@@ -28,6 +28,7 @@ export default function Header() {
             <ObfuscatedEmail 
               className="flex items-center gap-2 hover:text-[#ffb703] transition-colors"
               showIcon={true}
+              textClassName="hidden sm:inline"
             />
           </div>
         </div>
