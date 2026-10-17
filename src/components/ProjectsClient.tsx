@@ -8,6 +8,7 @@ export interface Repo {
   description: string;
   html_url: string;
   language: string;
+  fork?: boolean;
 }
 
 interface ProjectsClientProps {

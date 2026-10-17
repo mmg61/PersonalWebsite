@@ -1,6 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
-import { Mail, Phone } from "lucide-react";
+import { Phone } from "lucide-react";
 import ObfuscatedEmail from "./ObfuscatedEmail";
 
 export default function Header() {

@@ -4,7 +4,7 @@ Bu proje yeteneklerimi, projelerimi ve iletişim bilgilerimi sergilemek amacıyl
 
 ## Kullanılan Teknolojiler
 
-* **Framework:** Next.js 15 (App Router & Server-Side Rendering)
+* **Framework:** Next.js 16 (App Router & Server-Side Rendering)
 * **Kütüphane:** React 19
 * **Stil & Tasarım:** Tailwind CSS v4 (Sadece Solid/Blok renkler kullanılarak keskin bir tasarım dili oluşturuldu)
 * **İkonlar:** Lucide React

@@ -19,14 +19,6 @@
   --font-sans: var(--font-inter);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #021626; /* Çok koyu lacivert (023e8a'nın daha koyusu) */
-    --foreground: #f8fafc;
-    --text-body: #cbd5e1;
-  }
-}
-
 body {
   background: var(--background);
   color: var(--color-body);

@@ -174,8 +174,12 @@ export default function Contact() {
               <form className="space-y-6" onSubmit={handleSubmit}>
                 {/* Honeypot field - Bot trap */}
                 <input 
-                  type="checkbox" 
+                  type="text" 
                   name="botcheck" 
+                  value={honeypot}
+                  tabIndex={-1}
+                  autoComplete="off"
+                  aria-hidden="true"
                   className="hidden" 
                   style={{ display: "none" }} 
                   onChange={(e) => setHoneypot(e.target.value)} 

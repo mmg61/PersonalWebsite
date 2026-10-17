@@ -10,10 +10,11 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://mmgrsy.tr"),
   title: "MMG",
   description: "Modern web teknolojileri ile kullanıcı odaklı, performanslı ve ölçeklenebilir dijital deneyimler geliştiriyorum. Projelerime ve yeteneklerime göz atın.",
-  keywords: ["Yazılım Geliştirici", "Web Developer", "Frontend", "Backend", "React", "Next.js", "Portfolyo", "MMG"],
-  authors: [{ name: "MMG", url: "https://github.com/mmg61" }],
+  keywords: ["Yazılım Geliştirici", "Web Developer", "Frontend", "Backend", "React", "Next.js", "Portfolyo", "MMG", "Muhammet Mustafa Gürsoy"],
+  authors: [{ name: "Muhammet Mustafa Gürsoy", url: "https://github.com/mmg61" }],
   openGraph: {
     title: "MMG",
     description: "Modern web teknolojileri ile geliştirdiğim projelerim ve kişisel portfolyom.",
@@ -21,6 +22,20 @@ export const metadata: Metadata = {
     siteName: "MMG Portfolyo",
     locale: "tr_TR",
     type: "website",
+    images: [
+      {
+        url: "/cover.png",
+        width: 1200,
+        height: 630,
+        alt: "MMG Portfolyo",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "MMG",
+    description: "Modern web teknolojileri ile geliştirdiğim projelerim ve kişisel portfolyom.",
+    images: ["/cover.png"],
   },
   robots: {
     index: true,

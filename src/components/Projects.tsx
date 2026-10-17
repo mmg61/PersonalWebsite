@@ -3,11 +3,20 @@ import ProjectsClient, { Repo } from './ProjectsClient';
 export default async function Projects() {
   let repos: Repo[] = [];
   try {
+    const headers: HeadersInit = {
+      Accept: 'application/vnd.github.v3+json',
+    };
+    if (process.env.GITHUB_TOKEN) {
+      headers.Authorization = `Bearer ${process.env.GITHUB_TOKEN}`;
+    }
+
     const res = await fetch('https://api.github.com/users/mmg61/repos?sort=updated&per_page=30', {
-      next: { revalidate: 60 } // Her 1 dakikada bir yenile
+      headers,
+      next: { revalidate: 3600 } // Her 1 saatte bir yenile (GitHub API rate limit koruması)
     });
     if (res.ok) {
-      repos = await res.json();
+      const data: Repo[] = await res.json();
+      repos = data.filter((repo) => !repo.fork);
     }
   } catch (error) {
     console.error("Projeler çekilirken hata oluştu:", error);
