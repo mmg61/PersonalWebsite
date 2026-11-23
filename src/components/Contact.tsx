@@ -216,6 +216,7 @@ export default function Contact() {
                       value={name}
                       onChange={(e) => setName(e.target.value)}
                       placeholder="Adınız Soyadınız" 
+                      maxLength={200}
                       required
                       className="w-full px-4 py-3 rounded-xl bg-white border-none focus:bg-sky-50 focus:px-6 focus:tracking-wide focus:ring-0 outline-none transition-all duration-300 text-slate-800 placeholder:text-slate-400"
                     />
@@ -228,6 +229,7 @@ export default function Contact() {
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
                       placeholder="ornek@mail.com" 
+                      maxLength={200}
                       required
                       className="w-full px-4 py-3 rounded-xl bg-white border-none focus:bg-sky-50 focus:px-6 focus:tracking-wide focus:ring-0 outline-none transition-all duration-300 text-slate-800 placeholder:text-slate-400"
                     />
@@ -242,6 +244,7 @@ export default function Contact() {
                     value={subject}
                     onChange={(e) => setSubject(e.target.value)}
                     placeholder="Hangi konuda görüşmek istersiniz?" 
+                    maxLength={200}
                     required
                     className="w-full px-4 py-3 rounded-xl bg-white border-none focus:bg-sky-50 focus:px-6 focus:tracking-wide focus:ring-0 outline-none transition-all duration-300 text-slate-800 placeholder:text-slate-400"
                   />
@@ -255,6 +258,7 @@ export default function Contact() {
                     value={message}
                     onChange={(e) => setMessage(e.target.value)}
                     placeholder="Mesajınızı buraya yazabilirsiniz..." 
+                    maxLength={5000}
                     required
                     className="w-full px-4 py-3 rounded-xl bg-white border-none focus:bg-sky-50 focus:px-6 focus:tracking-wide focus:ring-0 outline-none transition-all duration-300 text-slate-800 placeholder:text-slate-400 resize-none"
                   ></textarea>

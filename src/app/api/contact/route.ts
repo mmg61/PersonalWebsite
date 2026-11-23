@@ -8,14 +8,14 @@ const RATE_LIMIT_WINDOW_MS = 15_000;
 const CAPTCHA_TTL_MS = 10 * 60 * 1000;
 const MAX_MAP_SIZE = 1000;
 
+const MAX_SHORT_FIELD_LENGTH = 200;
+const MAX_MESSAGE_LENGTH = 5000;
+const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
 const FALLBACK_RUNTIME_SECRET = crypto.randomBytes(32).toString("hex");
 
 function getSigningSecret(): string {
-  return (
-    process.env.CAPTCHA_SECRET ||
-    process.env.WEB3FORMS_ACCESS_KEY ||
-    FALLBACK_RUNTIME_SECRET
-  );
+  return process.env.CAPTCHA_SECRET || FALLBACK_RUNTIME_SECRET;
 }
 
 function signPayload(payload: string): string {
@@ -177,16 +177,54 @@ export async function POST(req: NextRequest) {
 
     if (
       typeof name !== "string" ||
-      !name.trim() ||
       typeof email !== "string" ||
-      !email.trim() ||
       typeof message !== "string" ||
-      !message.trim()
+      (subject !== undefined && typeof subject !== "string")
     ) {
       return NextResponse.json(
         {
           success: false,
+          message: "Geçersiz veri formatı.",
+        },
+        { status: 400 }
+      );
+    }
+
+    const trimmedName = name.trim();
+    const trimmedEmail = email.trim();
+    const trimmedSubject = typeof subject === "string" && subject.trim() ? subject.trim() : "Web Sitenizden Yeni Mesaj";
+    const trimmedMessage = message.trim();
+
+    if (!trimmedName || !trimmedEmail || !trimmedMessage) {
+      return NextResponse.json(
+        {
+          success: false,
           message: "Lütfen tüm zorunlu alanları doldurun.",
+        },
+        { status: 400 }
+      );
+    }
+
+    if (
+      trimmedName.length > MAX_SHORT_FIELD_LENGTH ||
+      trimmedEmail.length > MAX_SHORT_FIELD_LENGTH ||
+      trimmedSubject.length > MAX_SHORT_FIELD_LENGTH ||
+      trimmedMessage.length > MAX_MESSAGE_LENGTH
+    ) {
+      return NextResponse.json(
+        {
+          success: false,
+          message: "Alan uzunluk sınırı aşıldı (Başlık/İsim/E-posta en fazla 200, mesaj en fazla 5000 karakter olabilir).",
+        },
+        { status: 400 }
+      );
+    }
+
+    if (!EMAIL_REGEX.test(trimmedEmail)) {
+      return NextResponse.json(
+        {
+          success: false,
+          message: "Lütfen geçerli bir e-posta adresi girin.",
         },
         { status: 400 }
       );
@@ -213,13 +251,10 @@ export async function POST(req: NextRequest) {
       },
       body: JSON.stringify({
         access_key: accessKey,
-        name: name.trim(),
-        email: email.trim(),
-        subject:
-          typeof subject === "string" && subject.trim()
-            ? subject.trim()
-            : "Web Sitenizden Yeni Mesaj",
-        message: message.trim(),
+        name: trimmedName,
+        email: trimmedEmail,
+        subject: trimmedSubject,
+        message: trimmedMessage,
       }),
     });
 
