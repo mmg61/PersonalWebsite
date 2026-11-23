@@ -1,26 +1,26 @@
 "use client";
 
 import React, { useState } from 'react';
+import Image from 'next/image';
 
 export interface Repo {
   id: number;
   name: string;
-  description: string;
+  description: string | null;
   html_url: string;
-  language: string;
+  language: string | null;
   fork?: boolean;
+  coverUrl?: string | null;
 }
 
 interface ProjectsClientProps {
   repos: Repo[];
 }
 
-const ProjectImage = ({ repoName }: { repoName: string }) => {
+const ProjectImage = ({ repoName, coverUrl }: { repoName: string; coverUrl?: string | null }) => {
   const [error, setError] = useState(false);
-  // GitHub raw URL for the cover image
-  const imageUrl = `https://raw.githubusercontent.com/mmg61/${repoName}/main/cover.png`;
 
-  if (error) {
+  if (!coverUrl || error) {
     return (
       <div className="w-full h-40 bg-[#011e42] flex items-center justify-center p-6 text-center">
         <span className="text-[#00b4d8] font-bold text-2xl truncate w-full" title={repoName}>
@@ -32,10 +32,12 @@ const ProjectImage = ({ repoName }: { repoName: string }) => {
 
   return (
     <div className="w-full h-40 bg-[#011e42] relative overflow-hidden">
-      <img 
-        src={imageUrl} 
+      <Image
+        src={coverUrl}
         alt={`${repoName} cover`}
-        className="w-full h-full object-cover transition-transform duration-500 hover:scale-110"
+        fill
+        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+        className="object-cover transition-transform duration-500 hover:scale-110"
         onError={() => setError(true)}
       />
     </div>
@@ -61,7 +63,7 @@ export default function ProjectsClient({ repos }: ProjectsClientProps) {
                     key={repo.id} 
                     className="bg-[#023e8a] rounded-2xl overflow-hidden shadow-xl hover:-translate-y-2 transition-transform flex flex-col group w-full md:w-[calc(50%-1rem)] lg:w-[calc(33.333%-1.34rem)]"
                   >
-                    <ProjectImage repoName={repo.name} />
+                    <ProjectImage repoName={repo.name} coverUrl={repo.coverUrl} />
                     <div className="p-6 flex flex-col flex-grow">
                       <h3 className="font-bold text-xl mb-2 text-white truncate" title={repo.name}>
                         {repo.name}

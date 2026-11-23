@@ -17,9 +17,8 @@ export default function Hero() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
               className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-black tracking-tighter leading-[1.1] mb-6 drop-shadow-sm"
-              suppressHydrationWarning
             >
-              <span className="whitespace-nowrap text-[#ffb703]" style={{ color: "#ffb703" }}>Köklerden geleceğe,</span>
+              <span className="whitespace-nowrap text-[#ffb703]">Köklerden geleceğe,</span>
               <br />
               <span className="text-sky-600">Bağımsız Teknoloji.</span>
             </motion.h1>

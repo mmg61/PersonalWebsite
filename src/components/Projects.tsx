@@ -12,11 +12,32 @@ export default async function Projects() {
 
     const res = await fetch('https://api.github.com/users/mmg61/repos?sort=updated&per_page=30', {
       headers,
-      next: { revalidate: 3600 } // Her 1 saatte bir yenile (GitHub API rate limit koruması)
+      next: { revalidate: 3600 },
     });
     if (res.ok) {
       const data: Repo[] = await res.json();
-      repos = data.filter((repo) => !repo.fork);
+      const filtered = data.filter((repo) => !repo.fork);
+
+      repos = await Promise.all(
+        filtered.map(async (repo) => {
+          const coverUrl = `https://raw.githubusercontent.com/mmg61/${repo.name}/main/cover.png`;
+          try {
+            const headRes = await fetch(coverUrl, {
+              method: 'HEAD',
+              next: { revalidate: 3600 },
+            });
+            return {
+              ...repo,
+              coverUrl: headRes.ok ? coverUrl : null,
+            };
+          } catch {
+            return {
+              ...repo,
+              coverUrl: null,
+            };
+          }
+        })
+      );
     }
   } catch (error) {
     console.error("Projeler çekilirken hata oluştu:", error);

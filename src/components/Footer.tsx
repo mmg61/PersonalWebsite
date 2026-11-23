@@ -1,5 +1,6 @@
 import Link from "next/link";
 import ObfuscatedEmail from "./ObfuscatedEmail";
+import ObfuscatedPhone from "./ObfuscatedPhone";
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
@@ -40,22 +41,22 @@ export default function Footer() {
             <h4 className="text-lg font-bold mb-6 text-white">Hızlı Bağlantılar</h4>
             <ul className="space-y-3 font-medium">
               <li>
-                <Link href="#anasayfa" className="text-white/60 hover:text-[#00b4d8] transition-colors flex items-center gap-2">
+                <Link href="/#anasayfa" className="text-white/60 hover:text-[#00b4d8] transition-colors flex items-center gap-2">
                   <span className="w-1.5 h-1.5 rounded-full bg-[#00b4d8]"></span> Ana Sayfa
                 </Link>
               </li>
               <li>
-                <Link href="#hakkimda" className="text-white/60 hover:text-[#00b4d8] transition-colors flex items-center gap-2">
+                <Link href="/#hakkimda" className="text-white/60 hover:text-[#00b4d8] transition-colors flex items-center gap-2">
                   <span className="w-1.5 h-1.5 rounded-full bg-[#00b4d8]"></span> Hakkımda
                 </Link>
               </li>
               <li>
-                <Link href="#projeler" className="text-white/60 hover:text-[#00b4d8] transition-colors flex items-center gap-2">
+                <Link href="/#projeler" className="text-white/60 hover:text-[#00b4d8] transition-colors flex items-center gap-2">
                   <span className="w-1.5 h-1.5 rounded-full bg-[#00b4d8]"></span> Projeler
                 </Link>
               </li>
               <li>
-                <Link href="#iletisim" className="text-white/60 hover:text-[#00b4d8] transition-colors flex items-center gap-2">
+                <Link href="/#iletisim" className="text-white/60 hover:text-[#00b4d8] transition-colors flex items-center gap-2">
                   <span className="w-1.5 h-1.5 rounded-full bg-[#00b4d8]"></span> İletişim
                 </Link>
               </li>
@@ -69,7 +70,9 @@ export default function Footer() {
               <li>
                 <ObfuscatedEmail className="hover:text-white transition-colors" />
               </li>
-              <li>+90 (553) 827 61 26</li>
+              <li>
+                <ObfuscatedPhone className="hover:text-white transition-colors" />
+              </li>
             </ul>
           </div>
         </div>

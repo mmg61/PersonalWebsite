@@ -1,8 +1,9 @@
 "use client";
 
 import { Mail, MapPin, Send, Phone, RefreshCw, Loader2 } from "lucide-react";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import ObfuscatedEmail from "./ObfuscatedEmail";
+import ObfuscatedPhone from "./ObfuscatedPhone";
 
 export default function Contact() {
   const [name, setName] = useState("");
@@ -11,8 +12,8 @@ export default function Contact() {
   const [message, setMessage] = useState("");
   const [honeypot, setHoneypot] = useState("");
   
-  const [mathA, setMathA] = useState(0);
-  const [mathB, setMathB] = useState(0);
+  const [mathA, setMathA] = useState(4);
+  const [mathB, setMathB] = useState(5);
   const [captchaAnswer, setCaptchaAnswer] = useState("");
   
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
@@ -24,22 +25,16 @@ export default function Contact() {
     setCaptchaAnswer("");
   };
 
-  useEffect(() => {
-    generateCaptcha();
-  }, []);
-
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
-    if (parseInt(captchaAnswer) !== mathA + mathB) {
+    if (parseInt(captchaAnswer, 10) !== mathA + mathB) {
       setStatus("error");
       setStatusMessage("Güvenlik sorusunu yanlış cevapladınız.");
       return;
     }
 
-    // Bot honeypot kontrolü: Eğer gizli alan doldurulmuşsa bot olduğunu anlıyoruz
     if (honeypot) {
-      // Botlara karşı başarılıymış gibi davran (sessizce reddet)
       setStatus("success");
       setStatusMessage("Mesajınız başarıyla gönderildi!");
       setName("");
@@ -51,32 +46,25 @@ export default function Contact() {
       return;
     }
 
-    // .env.local içerisindeki anahtarı kullanırız. 
-    // Ön yüzde (client) kullanılacağı için NEXT_PUBLIC ile başlamalıdır.
-    const accessKey = process.env.NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY;
-    
-    if (!accessKey) {
-      setStatus("error");
-      setStatusMessage("Sistem hatası: Web3Forms erişim anahtarı bulunamadı. Lütfen .env.local dosyanızı kontrol edin.");
-      return;
-    }
-
     setStatus("loading");
     setStatusMessage("");
 
     try {
-      const res = await fetch("https://api.web3forms.com/submit", {
+      const res = await fetch("/api/contact", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
           Accept: "application/json",
         },
-        body: JSON.stringify({ 
-          access_key: accessKey,
-          name, 
-          email, 
-          subject: subject || 'Web Sitenizden Yeni Mesaj', 
-          message 
+        body: JSON.stringify({
+          name,
+          email,
+          subject: subject || "Web Sitenizden Yeni Mesaj",
+          message,
+          honeypot,
+          mathA,
+          mathB,
+          captchaAnswer,
         }),
       });
 
@@ -84,7 +72,9 @@ export default function Contact() {
 
       if (res.ok && data.success) {
         setStatus("success");
-        setStatusMessage("Mesajınız başarıyla gönderildi! En kısa sürede size dönüş yapacağım.");
+        setStatusMessage(
+          data.message || "Mesajınız başarıyla gönderildi! En kısa sürede size dönüş yapacağım."
+        );
         setName("");
         setEmail("");
         setSubject("");
@@ -94,7 +84,7 @@ export default function Contact() {
         setStatus("error");
         setStatusMessage(data.message || "Mesaj gönderilirken bir hata oluştu.");
       }
-    } catch (error) {
+    } catch {
       setStatus("error");
       setStatusMessage("Sunucu ile iletişim kurulamadı. Lütfen internet bağlantınızı kontrol edip tekrar deneyin.");
     }
@@ -105,8 +95,8 @@ export default function Contact() {
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 pt-12 pb-24 relative z-10">
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-10">
-            <h2 className="text-4xl font-black mb-4" style={{ color: "#000000" }}>İletişime Geçin</h2>
-            <p className="text-lg font-medium max-w-2xl mx-auto" style={{ color: "#0f172a" }}>
+            <h2 className="text-4xl font-black mb-4 text-black">İletişime Geçin</h2>
+            <p className="text-lg font-medium max-w-2xl mx-auto text-slate-900">
               Yeni bir proje fikriniz mi var veya sadece tanışmak mı istiyorsunuz? Benimle aşağıdaki kanallardan veya form aracılığıyla iletişime geçebilirsiniz.
             </p>
           </div>
@@ -137,7 +127,7 @@ export default function Contact() {
                     </div>
                     <div>
                       <p className="text-sm text-white/60 font-medium mb-1">Telefon</p>
-                      <a href="tel:+905538276126" className="font-bold hover:text-[#00b4d8] transition-colors">+90 (553) 827 61 26</a>
+                      <ObfuscatedPhone className="font-bold hover:text-[#00b4d8] transition-colors" />
                     </div>
                   </div>
                   

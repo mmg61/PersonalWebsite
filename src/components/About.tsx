@@ -112,7 +112,7 @@ export default function About() {
               
               {/* Profesyonel Özet */}
               <div>
-                <h4 className="text-xl font-bold mb-3 flex items-center gap-2" style={{ color: '#023e8a' }}>
+                <h4 className="text-xl font-bold mb-3 flex items-center gap-2 text-[#023e8a]">
                   <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
                   Profesyonel Özet
                 </h4>
@@ -123,7 +123,7 @@ export default function About() {
 
               {/* Teknik Yetkinlikler */}
               <div>
-                <h4 className="text-xl font-bold mb-3 flex items-center gap-2" style={{ color: '#023e8a' }}>
+                <h4 className="text-xl font-bold mb-3 flex items-center gap-2 text-[#023e8a]">
                   <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>
                   Teknik Yetkinlikler
                 </h4>
@@ -149,13 +149,13 @@ export default function About() {
 
               {/* Deneyim */}
               <div>
-                <h4 className="text-xl font-bold mb-3 flex items-center gap-2" style={{ color: '#023e8a' }}>
+                <h4 className="text-xl font-bold mb-3 flex items-center gap-2 text-[#023e8a]">
                   <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path></svg>
                   Deneyim
                 </h4>
                 <div className="space-y-4">
                   <div className="border-l-2 border-[#023e8a] pl-4 pb-2">
-                    <h5 className="font-bold text-lg" style={{ color: '#023e8a' }}>Lunar UAV</h5>
+                    <h5 className="font-bold text-lg text-[#023e8a]">Lunar UAV</h5>
                     <p className="text-[#023e8a] text-sm mb-2 font-medium">Yazılım & Donanım Destek Mühendisi (Gönüllü) • 2024 - 2025</p>
                     <ul className="list-disc pl-4 font-medium text-sm space-y-1">
                       <li>İnsansız hava araçları (İHA) sistemlerinin geliştirilme sürecinde donanım bileşenleri ve alt sistem testlerine teknik destek sağlandı.</li>
@@ -167,13 +167,13 @@ export default function About() {
 
               {/* Projeler */}
               <div>
-                <h4 className="text-xl font-bold mb-3 flex items-center gap-2" style={{ color: '#023e8a' }}>
+                <h4 className="text-xl font-bold mb-3 flex items-center gap-2 text-[#023e8a]">
                   <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path><polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline><line x1="12" y1="22.08" x2="12" y2="12"></line></svg>
                   Projeler
                 </h4>
                 <div className="space-y-6">
                   <div className="border-l-2 border-[#023e8a] pl-4 pb-2">
-                    <h5 className="font-bold text-lg" style={{ color: '#023e8a' }}>Biyometrik Doğrulamalı Akıllı Kalori & Sağlık Takip Sistemi</h5>
+                    <h5 className="font-bold text-lg text-[#023e8a]">Biyometrik Doğrulamalı Akıllı Kalori & Sağlık Takip Sistemi</h5>
                     <p className="text-[#023e8a] text-sm mb-2 font-medium">Python, PySide, Pandas, NumPy</p>
                     <ul className="list-disc pl-4 font-medium text-sm space-y-1">
                       <li>Biyometrik yüz tanıma algoritmasıyla kullanıcı oturum yönetimini güvenli ve temassız hale getiren modern masaüstü yazılımı geliştirildi.</li>
@@ -182,7 +182,7 @@ export default function About() {
                     </ul>
                   </div>
                   <div className="border-l-2 border-[#023e8a] pl-4 pb-2">
-                    <h5 className="font-bold text-lg" style={{ color: '#023e8a' }}>Kurumsal CMS & Dinamik Entegrasyon Motoru</h5>
+                    <h5 className="font-bold text-lg text-[#023e8a]">Kurumsal CMS & Dinamik Entegrasyon Motoru</h5>
                     <p className="text-[#023e8a] text-sm mb-2 font-medium">PHP, MySQL, Apache, Web Scraping</p>
                     <ul className="list-disc pl-4 font-medium text-sm space-y-1">
                       <li>Şirketler için dinamik içerik yönetimi sunan, rol tabanlı yetkilendirmeye sahip güvenli admin panelli web sistemi geliştirildi.</li>
@@ -195,18 +195,18 @@ export default function About() {
 
               {/* Eğitim */}
               <div>
-                <h4 className="text-xl font-bold mb-3 flex items-center gap-2" style={{ color: '#023e8a' }}>
+                <h4 className="text-xl font-bold mb-3 flex items-center gap-2 text-[#023e8a]">
                   <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"></path><path d="M6 12v5c3 3 9 3 12 0v-5"></path></svg>
                   Eğitim
                 </h4>
                 <div className="space-y-4">
                   <div className="border-l-2 border-[#023e8a] pl-4 pb-2">
-                    <h5 className="font-bold text-lg" style={{ color: '#023e8a' }}>Karadeniz Teknik Üniversitesi</h5>
+                    <h5 className="font-bold text-lg text-[#023e8a]">Karadeniz Teknik Üniversitesi</h5>
                     <p className="text-[#023e8a] text-sm font-medium">Bilgisayar Mühendisliği • Lisans Derecesi (İngilizce Hazırlık Eğitimi)</p>
                     <p className="text-sm font-medium">2026 – Günümüz</p>
                   </div>
                   <div className="border-l-2 border-[#023e8a] pl-4 pb-2">
-                    <h5 className="font-bold text-lg" style={{ color: '#023e8a' }}>Yomra Fen Lisesi</h5>
+                    <h5 className="font-bold text-lg text-[#023e8a]">Yomra Fen Lisesi</h5>
                     <p className="text-[#023e8a] text-sm font-medium">2022 – 2026</p>
                   </div>
                 </div>
@@ -214,7 +214,7 @@ export default function About() {
               
               {/* Eğitim Programları & Sertifikalar */}
               <div>
-                <h4 className="text-xl font-bold mb-3 flex items-center gap-2" style={{ color: '#023e8a' }}>
+                <h4 className="text-xl font-bold mb-3 flex items-center gap-2 text-[#023e8a]">
                   <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="8" r="7"></circle><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"></polyline></svg>
                   Sertifikalar ve Programlar
                 </h4>
