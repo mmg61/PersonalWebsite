@@ -1,7 +1,7 @@
 "use client";
 
 import { Mail, MapPin, Send, Phone, RefreshCw, Loader2 } from "lucide-react";
-import { useState } from "react";
+import { useState, useEffect, useCallback } from "react";
 import ObfuscatedEmail from "./ObfuscatedEmail";
 import ObfuscatedPhone from "./ObfuscatedPhone";
 
@@ -11,23 +11,56 @@ export default function Contact() {
   const [subject, setSubject] = useState("");
   const [message, setMessage] = useState("");
   const [honeypot, setHoneypot] = useState("");
-  
-  const [mathA, setMathA] = useState(4);
-  const [mathB, setMathB] = useState(5);
+
+  const [mathA, setMathA] = useState<number | null>(null);
+  const [mathB, setMathB] = useState<number | null>(null);
+  const [captchaToken, setCaptchaToken] = useState("");
   const [captchaAnswer, setCaptchaAnswer] = useState("");
-  
+
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
   const [statusMessage, setStatusMessage] = useState("");
 
-  const generateCaptcha = () => {
-    setMathA(Math.floor(Math.random() * 10) + 1);
-    setMathB(Math.floor(Math.random() * 10) + 1);
-    setCaptchaAnswer("");
-  };
+  const fetchCaptcha = useCallback(async () => {
+    try {
+      const res = await fetch("/api/contact", { cache: "no-store" });
+      if (res.ok) {
+        const data = await res.json();
+        setMathA(data.mathA);
+        setMathB(data.mathB);
+        setCaptchaToken(data.captchaToken);
+        setCaptchaAnswer("");
+      }
+    } catch {
+      // Yükleme hatası olursa mevcut durum korunur
+    }
+  }, []);
+
+  useEffect(() => {
+    let active = true;
+    fetch("/api/contact", { cache: "no-store" })
+      .then((res) => (res.ok ? res.json() : null))
+      .then((data) => {
+        if (active && data) {
+          setMathA(data.mathA);
+          setMathB(data.mathB);
+          setCaptchaToken(data.captchaToken);
+        }
+      })
+      .catch(() => {});
+    return () => {
+      active = false;
+    };
+  }, []);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
+
+    if (mathA === null || mathB === null || !captchaToken) {
+      setStatus("error");
+      setStatusMessage("Güvenlik sorusu yüklenemedi. Lütfen yenile butonuna basın.");
+      return;
+    }
+
     if (parseInt(captchaAnswer, 10) !== mathA + mathB) {
       setStatus("error");
       setStatusMessage("Güvenlik sorusunu yanlış cevapladınız.");
@@ -42,7 +75,7 @@ export default function Contact() {
       setSubject("");
       setMessage("");
       setHoneypot("");
-      generateCaptcha();
+      await fetchCaptcha();
       return;
     }
 
@@ -62,9 +95,8 @@ export default function Contact() {
           subject: subject || "Web Sitenizden Yeni Mesaj",
           message,
           honeypot,
-          mathA,
-          mathB,
           captchaAnswer,
+          captchaToken,
         }),
       });
 
@@ -79,11 +111,11 @@ export default function Contact() {
         setEmail("");
         setSubject("");
         setMessage("");
-        generateCaptcha();
       } else {
         setStatus("error");
         setStatusMessage(data.message || "Mesaj gönderilirken bir hata oluştu.");
       }
+      await fetchCaptcha();
     } catch {
       setStatus("error");
       setStatusMessage("Sunucu ile iletişim kurulamadı. Lütfen internet bağlantınızı kontrol edip tekrar deneyin.");
@@ -229,7 +261,10 @@ export default function Contact() {
                 </div>
                 
                 <div className="space-y-3">
-                  <label htmlFor="captcha" className="text-sm font-bold text-[#011e42]">Güvenlik Sorusu: {mathA} + {mathB} = ?</label>
+                  <label htmlFor="captcha" className="text-sm font-bold text-[#011e42]">
+                    Güvenlik Sorusu:{" "}
+                    {mathA !== null && mathB !== null ? `${mathA} + ${mathB} = ?` : "Yükleniyor..."}
+                  </label>
                   <div className="flex gap-4 items-center">
                     <input 
                       type="number" 
@@ -240,7 +275,7 @@ export default function Contact() {
                       required
                       className="w-32 px-4 py-3 rounded-xl bg-white border-none focus:bg-sky-50 focus:px-6 focus:tracking-wide focus:ring-0 outline-none transition-all duration-300 text-slate-800 placeholder:text-slate-400"
                     />
-                    <button type="button" onClick={generateCaptcha} className="p-3 bg-white text-slate-500 rounded-xl hover:bg-[#011e42] hover:text-white cursor-pointer transition-colors" title="Soruyu Yenile">
+                    <button type="button" onClick={fetchCaptcha} className="p-3 bg-white text-slate-500 rounded-xl hover:bg-[#011e42] hover:text-white cursor-pointer transition-colors" title="Soruyu Yenile">
                       <RefreshCw className="w-5 h-5" />
                     </button>
                   </div>
